@@ -1,0 +1,13 @@
+id_projeto,descricao_recurso,tipo_recurso,quantidade_utilizada,data_utilizacao
+1,Recursos financeiros para o projeto,financeiro,2000.0,2023-09-15
+2,Recursos materiais para o projeto,material,100.0,2023-09-15
+3,Recursos humanos para o projeto,humano,10.0,2023-09-15
+4,Recursos financeiros para o projeto,financeiro,1500.0,2023-09-15
+5,Recursos materiais para o projeto,material,50.0,2023-09-15
+6,Recursos humanos para o projeto,humano,5.0,2023-09-15
+7,Recursos financeiros para o projeto,financeiro,1000.0,2023-09-15
+8,Recursos materiais para o projeto,material,75.0,2023-09-15
+9,Recursos humanos para o projeto,humano,8.0,2023-09-15
+10,Recursos financeiros para o projeto,financeiro,1800.0,2023-09-15
+11,Recursos materiais para o projeto,material,90.0,2023-09-15
+12,Recursos humanos para o projeto,humano,12.0,2023-09-15

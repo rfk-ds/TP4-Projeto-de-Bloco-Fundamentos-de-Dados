@@ -1,0 +1,11 @@
+nome,data_admissao,id_cargo,id_departamento,salario_base
+João Silva,2023-01-15,1,1,5000.0
+Maria Oliveira,2023-02-20,2,2,6000.0
+Pedro Souza,2022-11-05,3,3,6300.0
+Ana Costa,2021-07-13,4,4,7000.0
+Luiz Pereira,2020-08-21,5,5,3000.0
+Carlos Nunes,2023-03-10,6,6,1500.0
+Alice Oliveira,2023-04-25,5,7,6500.0
+Bruno Santos,2023-05-30,3,8,6700.0
+Carla Dias,2023-06-05,1,9,5200.0
+Nicolas lima,2023-07-10,2,10,6000.0
