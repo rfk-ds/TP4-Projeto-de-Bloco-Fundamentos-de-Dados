@@ -276,6 +276,7 @@ def consulta_1(cursor):
     for linha in resultado:
         print(linha)
     
+    print("\n")
     dados = [{"departamento": linha[0], "media_salario": linha[1]} for linha in resultado]
     return dados
 
@@ -310,6 +311,7 @@ def consulta_3(cursor):
     for linha in resultado:
         print(linha)
     
+    print("\n")
     dados = [{"departamento": linha[0], "custo_total": linha[1]} for linha in resultado]
     return dados
         
@@ -326,6 +328,7 @@ def consulta_4(cursor):
     for linha in resultado:
         print(linha)
 
+    print("\n")
     dados = [{"nome_projeto": linha[0], "custo": linha[1], "data_inicio": linha[2],
               "data_conclusao": linha[3], "responsavel": linha[4]} for linha in resultado]
     return dados
@@ -378,9 +381,11 @@ def main():
     consulta_5(cursor)
     print("\n")
     
-    print("------------------- RESULTADOS (json) -------------------\n")
+    print("Salvando arquivos json...\n")
     salvar_json('consulta_1_media_salarios.json', consulta_1(cursor))
+    print("\n")
     salvar_json('consulta_3_custo_projetos.json', consulta_3(cursor))
+    print("\n")
     salvar_json('consulta_4_projetos_execucao.json', consulta_4(cursor))
 
     conn.commit()
