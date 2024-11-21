@@ -277,7 +277,7 @@ def consulta_1(cursor):
         print(linha)
     
     dados = [{"departamento": linha[0], "media_salario": linha[1]} for linha in resultado]
-    return json.dumps(dados, indent=4)
+    return dados
 
 # Identificar os três recursos materiais mais usados nos projetos, listando a descrição do recurso e a quantidade total usada.
 def consulta_2(cursor):
@@ -311,7 +311,7 @@ def consulta_3(cursor):
         print(linha)
     
     dados = [{"departamento": linha[0], "custo_total": linha[1]} for linha in resultado]
-    return json.dumps(dados, ensure_ascii=False, indent=4)
+    return dados
         
 # Listar todos os projetos com seus respectivos nomes, custo, data de início, data de conclusão e o nome do funcionário responsável, que estejam 'Em Execução'.
 def consulta_4(cursor):
@@ -328,7 +328,7 @@ def consulta_4(cursor):
 
     dados = [{"nome_projeto": linha[0], "custo": linha[1], "data_inicio": linha[2],
               "data_conclusao": linha[3], "responsavel": linha[4]} for linha in resultado]
-    return json.dumps(dados, ensure_ascii=False, indent=4)
+    return dados
 
 # Identificar o projeto com o maior número de dependentes envolvidos, considerando que os dependentes são associados aos funcionários que estão gerenciando os projetos.
 def consulta_5(cursor):

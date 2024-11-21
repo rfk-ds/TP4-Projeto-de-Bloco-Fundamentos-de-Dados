@@ -1,1 +1,10 @@
-"[\n    {\n        \"departamento\": \"Marketing\",\n        \"media_salario\": 6300.0\n    },\n    {\n        \"departamento\": \"Recursos Humanos\",\n        \"media_salario\": 6000.0\n    }\n]"
+[
+    {
+        "departamento": "Marketing",
+        "media_salario": 6300.0
+    },
+    {
+        "departamento": "Recursos Humanos",
+        "media_salario": 6000.0
+    }
+]
