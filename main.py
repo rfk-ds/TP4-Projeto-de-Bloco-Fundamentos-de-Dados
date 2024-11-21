@@ -1,5 +1,6 @@
 import sqlite3
 import csv
+import json
 
 def conectar():
     return sqlite3.connect("banco_de_dados_tp.db")
@@ -255,6 +256,11 @@ def ler_csv(nome_arquivo):
         next(leitor)
         return [linha for linha in leitor if linha]
 
+def salvar_json(nome_arquivo, dados):
+    with open(nome_arquivo, 'w', encoding='utf-8') as arquivo:
+        json.dump(dados, arquivo, ensure_ascii=False, indent=4)
+    print(f"{nome_arquivo} criado com sucesso!")
+
 # Trazer a média dos salários (atual) dos funcionários responsáveis por projetos concluídos, agrupados por departamento"
 def consulta_1(cursor):
     cursor.execute("""
@@ -269,6 +275,9 @@ def consulta_1(cursor):
     print("Departamento | Média dos salários")
     for linha in resultado:
         print(linha)
+    
+    dados = [{"departamento": linha[0], "media_salario": linha[1]} for linha in resultado]
+    return json.dumps(dados, indent=4)
 
 # Identificar os três recursos materiais mais usados nos projetos, listando a descrição do recurso e a quantidade total usada.
 def consulta_2(cursor):
@@ -284,6 +293,7 @@ def consulta_2(cursor):
     print("Descrição do recurso | Quantidade total usada")
     for linha in resultado:
         print(linha)
+    
         
 # Calcular o custo total dos projetos por departamento, considerando apenas os projetos 'Concluídos'.
 def consulta_3(cursor):
@@ -299,6 +309,9 @@ def consulta_3(cursor):
     print("Departamento | Custo total dos projetos")
     for linha in resultado:
         print(linha)
+    
+    dados = [{"departamento": linha[0], "custo_total": linha[1]} for linha in resultado]
+    return json.dumps(dados, ensure_ascii=False, indent=4)
         
 # Listar todos os projetos com seus respectivos nomes, custo, data de início, data de conclusão e o nome do funcionário responsável, que estejam 'Em Execução'.
 def consulta_4(cursor):
@@ -312,6 +325,10 @@ def consulta_4(cursor):
     print("Nome do projeto | Custo | Data de início | Data de conclusão | Nome do funcionário responsável")
     for linha in resultado:
         print(linha)
+
+    dados = [{"nome_projeto": linha[0], "custo": linha[1], "data_inicio": linha[2],
+              "data_conclusao": linha[3], "responsavel": linha[4]} for linha in resultado]
+    return json.dumps(dados, ensure_ascii=False, indent=4)
 
 # Identificar o projeto com o maior número de dependentes envolvidos, considerando que os dependentes são associados aos funcionários que estão gerenciando os projetos.
 def consulta_5(cursor):
@@ -360,6 +377,11 @@ def main():
     print("5. Identificar o projeto com o maior número de dependentes envolvidos, considerando que os dependentes são associados aos funcionários que estão gerenciando os projetos.")
     consulta_5(cursor)
     print("\n")
+    
+    print("------------------- RESULTADOS (json) -------------------\n")
+    salvar_json('consulta_1_media_salarios.json', consulta_1(cursor))
+    salvar_json('consulta_3_custo_projetos.json', consulta_3(cursor))
+    salvar_json('consulta_4_projetos_execucao.json', consulta_4(cursor))
 
     conn.commit()
     conn.close()
