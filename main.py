@@ -211,15 +211,25 @@ def criar_csvs():
     
     projetos = [
         ['Projeto 1', 'Projeto de desenvolvimento de software', '2023-09-15', '2023-12-15', 1, 5000.0, 'Em Planejamento'],
-        ['Projeto 2', 'Projeto de marketing digital', '2023-09-15', '2023-12-15', 2, 6000.0, 'Em Planejamento'],
-        ['Projeto 3', 'Projeto de vendas online', '2023-09-15', '2023-12-15', 3, 6300.0, 'Em Planejamento'],
-        ['Projeto 4', 'Projeto de desenvolvimento de software', '2023-09-15', '2023-12-15', 4, 7000.0, 'Em Planejamento'],
-        ['Projeto 5', 'Projeto de marketing digital', '2023-09-15', '2023-12-15', 5, 3000.0, 'Em Planejamento'],
-        ['Projeto 6', 'Projeto de vendas online', '2023-09-15', '2023-12-15', 6, 1500.0, 'Em Planejamento'],
-        ['Projeto 7', 'Projeto de desenvolvimento de software', '2023-09-15', '2023-12-15', 7, 6500.0, 'Em Planejamento'],
-        ['Projeto 8', 'Projeto de marketing digital', '2023-09-15', '2023-12-15', 8, 6700.0, 'Em Planejamento'],
-        ['Projeto 9', 'Projeto de vendas online', '2023-09-15', '2023-12-15', 9, 5200.0, 'Em Planejamento'],
-        ['Projeto 10', 'Projeto de desenvolvimento de software', '2023-09-15', '2023-12-15', 10, 6000.0, 'Em Planejamento']
+        ['Projeto 2', 'Projeto de marketing digital', '2023-09-15', '2023-12-15', 2, 6000.0, 'Em Execução'],
+        ['Projeto 3', 'Projeto de vendas', '2023-09-15', '2023-12-15', 3, 6300.0, 'Concluído'],
+        ['Projeto 4', 'Projeto de finanças', '2023-09-15', '2023-12-15', 4, 7000.0, 'Em Planejamento'],
+        ['Projeto 5', 'Projeto de recursos humanos', '2023-09-15', '2023-12-15', 5, 3000.0, 'Em Planejamento'],
+        ['Projeto 6', 'Projeto de vendas', '2023-09-15', '2023-12-15', 6, 1500.0, 'Em Planejamento'],
+        ['Projeto 7', 'Projeto de marketing digital', '2023-09-15', '2023-12-15', 7, 6500.0, 'Cancelado'],
+        ['Projeto 8', 'Projeto de desenvolvimento de software', '2023-09-15', '2023-12-15', 8, 6700.0, 'Concluído'],
+        ['Projeto 9', 'Projeto de marketing digital', '2023-09-15', '2023-12-15', 9, 5200.0, 'Em Planejamento'],
+        ['Projeto 10', 'Projeto de vendas', '2023-09-15', '2023-12-15', 10, 6000.0, 'Em Execução'],
+        ['Projeto 11', 'Projeto de finanças', '2023-09-15', '2023-12-15', 1, 5000.0, 'Em Planejamento'],
+        ['Projeto 12', 'Projeto de recursos humanos', '2023-09-15', '2023-12-15', 2, 6000, 'Concluído'],
+        ['Projeto 13', 'Projeto de vendas', '2023-09-15', '2023-12-15', 3, 6300.0, 'Concluído'],
+        ['Projeto 14', 'Projeto de finanças', '2023-09-15', '2023-12-15', 4, 7000.0, 'Em Planejamento'],
+        ['Projeto 15', 'Projeto de recursos humanos', '2023-09-15', '2023-12-15', 5, 3000.0, 'Em Planejamento'],
+        ['Projeto 16', 'Projeto de vendas', '2023-09-15', '2023-12-15', 6, 1500.0, 'Em Planejamento'],
+        ['Projeto 17', 'Projeto de marketing digital', '2023-09-15', '2023-12-15', 7, 6500.0, 'Cancelado'],
+        ['Projeto 18', 'Projeto de desenvolvimento de software', '2023-09-15', '2023-12-15', 8, 6700.0, 'Concluído'],
+        ['Projeto 19', 'Projeto de marketing digital', '2023-09-15', '2023-12-15', 9, 5200.0, 'Em Planejamento'],
+        ['Projeto 20', 'Projeto de vendas', '2023-09-15', '2023-12-15', 10, 6000.0, 'Em Execução']
     ]
 
     criar_csv('cargos.csv', ['nome_cargo', 'descricao_cargo'], cargos)
@@ -245,167 +255,79 @@ def ler_csv(nome_arquivo):
         next(leitor)
         return [linha for linha in leitor if linha]
 
-# 1. Listar individualmente as tabelas de: Funcionários, Cargos, Departamentos, Histórico de Salários e Dependentes em ordem crescente. # QUINTA CONSULTA PYTHON
-def listar_tabelas(cursor):
-    tabelas = ['Funcionarios', 'Cargos', 'Departamentos', 'HistoricoSalarios', 'Dependentes']
-    for tabela in tabelas:
-        cursor.execute(f"SELECT * FROM {tabela} ORDER BY 1")
-        resultados = cursor.fetchall()
-        print(f"\n-----Tabela: {tabela}-----\n")
-        for linha in resultados:
-            print(linha)
-print("\n")
-
-# 2. Listar os funcionários, com seus cargos, departamentos e os respectivos dependentes.
-def listar_funcionarios_com_dependentes(cursor):
+# Trazer a média dos salários (atual) dos funcionários responsáveis por projetos concluídos, agrupados por departamento"
+def consulta_1(cursor):
     cursor.execute("""
-    SELECT f.nome, c.nome_cargo, d.nome_departamento, 
-           GROUP_CONCAT(dep.nome) AS dependentes
+    SELECT d.nome_departamento, AVG(f.salario_base)
     FROM Funcionarios f
-    JOIN Cargos c ON f.id_cargo = c.id_cargo
+    JOIN Projetos p ON f.id_funcionario = p.id_funcionario_responsavel
     JOIN Departamentos d ON f.id_departamento = d.id_departamento
-    LEFT JOIN Dependentes dep ON f.id_funcionario = dep.id_funcionario
-    GROUP BY f.id_funcionario
-    ORDER BY f.nome;
-    """)
-    resultados = cursor.fetchall()
-    for linha in resultados:
-        print(linha)
-print("\n")
-
-# 3. Listar os funcionários que tiveram aumento salarial nos últimos 3 meses.
-def listar_funcionarios_aumento(cursor):
-    cursor.execute("""
-    SELECT f.nome, hs2.salario AS salario_atual
-    FROM HistoricoSalarios hs1
-    JOIN HistoricoSalarios hs2 ON hs1.id_funcionario = hs2.id_funcionario 
-    AND hs1.mes_ano < hs2.mes_ano
-    JOIN Funcionarios f ON f.id_funcionario = hs1.id_funcionario
-    WHERE hs2.salario > hs1.salario 
-    AND hs1.mes_ano >= '2023-07'
-    AND hs2.mes_ano <= '2023-09'  -- Altere para a data final que você precisa
-    GROUP BY f.nome, hs2.salario
-    ORDER BY f.nome;
-    """)
-    resultados = cursor.fetchall()
-    for linha in resultados:
-        print(linha)
-print("\n")
-
-
-# 4. Listar a média de salário por departamento em ordem decrescente.
-def media_salario_por_departamento(cursor):
-    cursor.execute("""
-    SELECT d.nome_departamento, AVG(f.salario_base) AS media_salario
-    FROM Departamentos d
-    JOIN Funcionarios f ON d.id_departamento = f.id_departamento
-    GROUP BY d.id_departamento
-    ORDER BY media_salario DESC;
-    """)
-    resultados = cursor.fetchall()
-    for linha in resultados:
-        print(linha)
-print("\n")
-
-# 5. Listar qual departamento possui o maior número de dependentes.
-def departamento_maior_numero_dependentes(cursor):
-    cursor.execute("""
-    SELECT d.nome_departamento, COUNT(dep.id_dependente) AS num_dependentes
-    FROM Departamentos d
-    JOIN Funcionarios f ON d.id_departamento = f.id_departamento
-    LEFT JOIN Dependentes dep ON f.id_funcionario = dep.id_funcionario
+    WHERE p.status = 'Concluído'
     GROUP BY d.nome_departamento
-    ORDER BY num_dependentes DESC
-    LIMIT 1;
     """)
-    resultados = cursor.fetchall()
-    for linha in resultados:
+    resultado = cursor.fetchall()
+    print("Departamento | Média dos salários")
+    for linha in resultado:
         print(linha)
-print("\n")
 
-#CONSULTAS PYTHON
-
-# 6. Listar a média de idade dos filhos dos funcionários por departamento.
-def media_idade_filhos_por_departamento(funcionarios, dependentes):
-    from datetime import datetime
-
-    idade_por_departamento = {}
-
-    for dep in dependentes:
-        id_funcionario = int(dep[3])
-        data_nascimento = datetime.strptime(dep[1], '%Y-%m-%d')
-        idade = (datetime.now() - data_nascimento).days // 365
-
-        for func in funcionarios:
-            if int(func[2]) == id_funcionario:
-                departamento = func[3]
-                
-                if departamento not in idade_por_departamento:
-                    idade_por_departamento[departamento] = []
-                idade_por_departamento[departamento].append(idade)
-                break 
-
-    media_idades = {dep: sum(idades) / len(idades) for dep, idades in idade_por_departamento.items()} if idade_por_departamento else {}
-
-    print("\nMédia de Idade dos Filhos por Departamento:")
-    for dep, media in media_idades.items():
-        print(f"Departamento {dep}: {media:.0f} anos")
-
-    return media_idades
-print("\n")
-
-# 7. Listar qual estagiário possui filho.
-def estagiario_com_filhos(funcionarios, dependentes):
-    estagiarios = [func for func in funcionarios if func[3] == '6']
-
-    estagiario_com_filhos = []
-    for estagiario in estagiarios:
-        estagiario_id = estagiario[2]
-
-        for dep in dependentes:
-            if dep[3] == estagiario_id:
-                estagiario_com_filhos.append(estagiario[0])
-
-    if estagiario_com_filhos:
-        for nome in estagiario_com_filhos:
-            print(nome)
-    else:
-        print("Nenhum estagiário com filhos encontrado.")
-print("\n")
-
-# 8. Listar o funcionário que teve o salário médio mais alto. # QUINTA CONSULTA SQL
-def funcionario_salario_medio_mais_alto(cursor):
+# Identificar os três recursos materiais mais usados nos projetos, listando a descrição do recurso e a quantidade total usada.
+def consulta_2(cursor):
     cursor.execute("""
-    SELECT f.nome, AVG(h.salario) AS salario_medio
-    FROM Funcionarios f
-    JOIN HistoricoSalarios h ON f.id_funcionario = h.id_funcionario
-    GROUP BY f.id_funcionario
-    ORDER BY salario_medio DESC
-    LIMIT 1;
+    SELECT r.descricao_recurso, SUM(r.quantidade_utilizada) as quantidade_total
+    FROM Recursos r
+    WHERE r.tipo_recurso = 'material'
+    GROUP BY r.descricao_recurso
+    ORDER BY quantidade_total DESC
+    LIMIT 3
     """)
-    resultado = cursor.fetchone()
-    print(resultado)
-print("\n")
-
-# 9. Listar o analista que é pai de 2 (duas) meninas.
-def analista_pai_duas_meninas(funcionarios, dependentes):
-    analistas = [func for func in funcionarios if func[3] == '3']
-
-    for analista in analistas:
-        analista_id = analista[2]
+    resultado = cursor.fetchall()
+    print("Descrição do recurso | Quantidade total usada")
+    for linha in resultado:
+        print(linha)
         
-        filhas = [dep for dep in dependentes if dep[3] == analista_id and dep[2] == 'F']
+# Calcular o custo total dos projetos por departamento, considerando apenas os projetos 'Concluídos'.
+def consulta_3(cursor):
+    cursor.execute("""
+    SELECT d.nome_departamento, SUM(p.custo) as custo_total
+    FROM Projetos p
+    JOIN Funcionarios f ON p.id_funcionario_responsavel = f.id_funcionario
+    JOIN Departamentos d ON f.id_departamento = d.id_departamento
+    WHERE p.status = 'Concluído'
+    GROUP BY d.nome_departamento
+    """)
+    resultado = cursor.fetchall()
+    print("Departamento | Custo total dos projetos")
+    for linha in resultado:
+        print(linha)
         
-        if len(filhas) == 2:
-            print(analista[0])
-print("\n")
+# Listar todos os projetos com seus respectivos nomes, custo, data de início, data de conclusão e o nome do funcionário responsável, que estejam 'Em Execução'.
+def consulta_4(cursor):
+    cursor.execute("""
+    SELECT p.nome_projeto, p.custo, p.data_inicio, p.data_conclusao, f.nome
+    FROM Projetos p
+    JOIN Funcionarios f ON p.id_funcionario_responsavel = f.id_funcionario
+    WHERE p.status = 'Em Execução'
+    """)
+    resultado = cursor.fetchall()
+    print("Nome do projeto | Custo | Data de início | Data de conclusão | Nome do funcionário responsável")
+    for linha in resultado:
+        print(linha)
 
-# 10. Listar o analista que tem o salário mais alto e que ganhe entre 5000 e 9000.
-def analista_salario_alto(funcionarios):
-    analistas = [func for func in funcionarios if func[2] == '3' and 5000 <= float(func[4]) <= 9000]
-    
-    analista_mais_bem_pago = max(analistas, key=lambda x: float(x[4]))
-    print(f"{analista_mais_bem_pago[0]} | Salário: {analista_mais_bem_pago[4]}.")
+# Identificar o projeto com o maior número de dependentes envolvidos, considerando que os dependentes são associados aos funcionários que estão gerenciando os projetos.
+def consulta_5(cursor):
+    cursor.execute("""
+    SELECT p.nome_projeto, COUNT(d.id_dependente) as total_dependentes
+    FROM Projetos p
+    JOIN Funcionarios f ON p.id_funcionario_responsavel = f.id_funcionario
+    JOIN Dependentes d ON f.id_funcionario = d.id_funcionario
+    GROUP BY p.nome_projeto
+    ORDER BY total_dependentes DESC
+    LIMIT 1
+    """)
+    resultado = cursor.fetchall()
+    print("Nome do projeto | Total de dependentes")
+    for linha in resultado:
+        print(linha)
 
 def main():
     conn = conectar()
@@ -416,53 +338,27 @@ def main():
     criar_csvs()
     inserir_dados_csv(cursor)
     
-    print("------------------- CONSULTAS SQL -------------------")
+    print("------------------- CONSULTAS -------------------")
     print("\n")
     
-    print("1. Listar individualmente as tabelas de: Funcionários, Cargos, Departamentos, Histórico de Salários e Dependentes em ordem crescente.")
-    listar_tabelas(cursor)
+    print("1. Trazer a média dos salários (atual) dos funcionários responsáveis por projetos concluídos, agrupados por departamento")
+    consulta_1(cursor)
     print("\n")
     
-    print("2. Listar os funcionários, com seus cargos, departamentos e os respectivos dependentes.")
-    listar_funcionarios_com_dependentes(cursor)
+    print("2. Identificar os três recursos materiais mais usados nos projetos, listando a descrição do recurso e a quantidade total usada.")
+    consulta_2(cursor)
     print("\n")
     
-    print("3. Listar os funcionários que tiveram aumento salarial nos últimos 3 meses.")
-    listar_funcionarios_aumento(cursor)
+    print("3. Calcular o custo total dos projetos por departamento, considerando apenas os projetos 'Concluídos'.")
+    consulta_3(cursor)
     print("\n")
     
-    print("4. Listar a média de salário por departamento em ordem decrescente.")
-    media_salario_por_departamento(cursor)
+    print("4. Listar todos os projetos com seus respectivos nomes, custo, data de início, data de conclusão e o nome do funcionário responsável, que estejam 'Em Execução'.")
+    consulta_4(cursor)
     print("\n")
     
-    print("5. Listar qual departamento possui o maior número de dependentes.")
-    departamento_maior_numero_dependentes(cursor)
-    print("\n")
-
-    funcionarios = ler_csv('funcionarios.csv')
-    dependentes = ler_csv('dependentes.csv')
-    
-    print("------------------- CONSULTAS PYTHON -------------------")
-    print("\n")
-    
-    print("6. Listar a média de idade dos filhos dos funcionários por departamento.")
-    media_idade_filhos_por_departamento(funcionarios, dependentes)
-    print("\n")
-    
-    print("7. Listar qual estagiário possui filho.")
-    estagiario_com_filhos(funcionarios, dependentes)
-    print("\n")
-    
-    print("8. Listar o funcionário que teve o salário médio mais alto.")
-    funcionario_salario_medio_mais_alto(cursor)
-    print("\n")
-    
-    print("9. Listar o analista que é pai de 2 (duas) meninas.")
-    analista_pai_duas_meninas(funcionarios, dependentes)
-    print("\n")
-    
-    print("10. Listar o analista que tem o salário mais alto e que ganhe entre 5000 e 9000.")
-    analista_salario_alto(funcionarios)
+    print("5. Identificar o projeto com o maior número de dependentes envolvidos, considerando que os dependentes são associados aos funcionários que estão gerenciando os projetos.")
+    consulta_5(cursor)
     print("\n")
 
     conn.commit()

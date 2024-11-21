@@ -1,11 +1,21 @@
 nome_projeto,descricao,data_inicio,data_conclusao,id_funcionario_responsavel,custo,status
 Projeto 1,Projeto de desenvolvimento de software,2023-09-15,2023-12-15,1,5000.0,Em Planejamento
-Projeto 2,Projeto de marketing digital,2023-09-15,2023-12-15,2,6000.0,Em Planejamento
-Projeto 3,Projeto de vendas online,2023-09-15,2023-12-15,3,6300.0,Em Planejamento
-Projeto 4,Projeto de desenvolvimento de software,2023-09-15,2023-12-15,4,7000.0,Em Planejamento
-Projeto 5,Projeto de marketing digital,2023-09-15,2023-12-15,5,3000.0,Em Planejamento
-Projeto 6,Projeto de vendas online,2023-09-15,2023-12-15,6,1500.0,Em Planejamento
-Projeto 7,Projeto de desenvolvimento de software,2023-09-15,2023-12-15,7,6500.0,Em Planejamento
-Projeto 8,Projeto de marketing digital,2023-09-15,2023-12-15,8,6700.0,Em Planejamento
-Projeto 9,Projeto de vendas online,2023-09-15,2023-12-15,9,5200.0,Em Planejamento
-Projeto 10,Projeto de desenvolvimento de software,2023-09-15,2023-12-15,10,6000.0,Em Planejamento
+Projeto 2,Projeto de marketing digital,2023-09-15,2023-12-15,2,6000.0,Em Execução
+Projeto 3,Projeto de vendas,2023-09-15,2023-12-15,3,6300.0,Concluído
+Projeto 4,Projeto de finanças,2023-09-15,2023-12-15,4,7000.0,Em Planejamento
+Projeto 5,Projeto de recursos humanos,2023-09-15,2023-12-15,5,3000.0,Em Planejamento
+Projeto 6,Projeto de vendas,2023-09-15,2023-12-15,6,1500.0,Em Planejamento
+Projeto 7,Projeto de marketing digital,2023-09-15,2023-12-15,7,6500.0,Cancelado
+Projeto 8,Projeto de desenvolvimento de software,2023-09-15,2023-12-15,8,6700.0,Concluído
+Projeto 9,Projeto de marketing digital,2023-09-15,2023-12-15,9,5200.0,Em Planejamento
+Projeto 10,Projeto de vendas,2023-09-15,2023-12-15,10,6000.0,Em Execução
+Projeto 11,Projeto de finanças,2023-09-15,2023-12-15,1,5000.0,Em Planejamento
+Projeto 12,Projeto de recursos humanos,2023-09-15,2023-12-15,2,6000,Concluído
+Projeto 13,Projeto de vendas,2023-09-15,2023-12-15,3,6300.0,Concluído
+Projeto 14,Projeto de finanças,2023-09-15,2023-12-15,4,7000.0,Em Planejamento
+Projeto 15,Projeto de recursos humanos,2023-09-15,2023-12-15,5,3000.0,Em Planejamento
+Projeto 16,Projeto de vendas,2023-09-15,2023-12-15,6,1500.0,Em Planejamento
+Projeto 17,Projeto de marketing digital,2023-09-15,2023-12-15,7,6500.0,Cancelado
+Projeto 18,Projeto de desenvolvimento de software,2023-09-15,2023-12-15,8,6700.0,Concluído
+Projeto 19,Projeto de marketing digital,2023-09-15,2023-12-15,9,5200.0,Em Planejamento
+Projeto 20,Projeto de vendas,2023-09-15,2023-12-15,10,6000.0,Em Execução
