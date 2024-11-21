@@ -345,6 +345,22 @@ def consulta_5(cursor):
     print("Nome do projeto | Total de dependentes")
     for linha in resultado:
         print(linha)
+        
+def juntar_dados():
+    conn = conectar()
+    cursor = conn.cursor()
+    
+    dados_1 = consulta_1(cursor)
+    dados_3 = consulta_3(cursor)
+    dados_4 = consulta_4(cursor)
+
+    todos_dados = {
+        "media_salarios": dados_1,
+        "custos_totais": dados_3,
+        "projetos_em_execucao": dados_4
+    }
+    
+    salvar_json('dados_combinados.json', todos_dados)
 
 def main():
     conn = conectar()
@@ -382,6 +398,7 @@ def main():
     salvar_json('consulta_1_media_salarios.json', consulta_1(cursor))
     salvar_json('consulta_3_custo_projetos.json', consulta_3(cursor))
     salvar_json('consulta_4_projetos_execucao.json', consulta_4(cursor))
+    juntar_dados()
 
     conn.commit()
     conn.close()

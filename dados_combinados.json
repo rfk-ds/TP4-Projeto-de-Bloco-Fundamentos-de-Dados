@@ -1,0 +1,45 @@
+{
+    "media_salarios": [
+        {
+            "departamento": "Marketing",
+            "media_salario": 6300.0
+        },
+        {
+            "departamento": "Recursos Humanos",
+            "media_salario": 6000.0
+        }
+    ],
+    "custos_totais": [
+        {
+            "departamento": "Marketing",
+            "custo_total": 12600.0
+        },
+        {
+            "departamento": "Recursos Humanos",
+            "custo_total": 6000.0
+        }
+    ],
+    "projetos_em_execucao": [
+        {
+            "nome_projeto": "Projeto 2",
+            "custo": 6000.0,
+            "data_inicio": "2023-09-15",
+            "data_conclusao": "2023-12-15",
+            "responsavel": "Maria Oliveira"
+        },
+        {
+            "nome_projeto": "Projeto 10",
+            "custo": 6000.0,
+            "data_inicio": "2023-09-15",
+            "data_conclusao": "2023-12-15",
+            "responsavel": "Nicolas lima"
+        },
+        {
+            "nome_projeto": "Projeto 20",
+            "custo": 6000.0,
+            "data_inicio": "2023-09-15",
+            "data_conclusao": "2023-12-15",
+            "responsavel": "Nicolas lima"
+        }
+    ]
+}
